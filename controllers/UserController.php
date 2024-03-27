@@ -183,7 +183,44 @@ class UserController{
     }
     
 
+    public function checkCredentials(){
+
+        $camposObrigatorios = ['email', 'senha'];
+        foreach ($camposObrigatorios as $campo) {
+            if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
+                // Se algum campo estiver faltando ou vazio, retorna uma resposta de erro
+                http_response_code(402);
+                echo json_encode(['mensagem' => 'Todos os campos são obrigatórios']);
+                return;
+            }
+        }
+
+        try {
+            $email  = $_POST['email'];
+            $senha  = $_POST['senha'];
+            $userDao = UserDao::checkCredentials($email, $senha);
+
+            $user['id'] = $userDao;
+
+            http_response_code(200);
+            header('Content-Type: application/json');
+            echo json_encode($user);
+        }catch (Exception $e){
+            http_response_code(500); // 500 Internal Server Error
+            echo json_encode(['mensagem' => 'Erro ao fazer Login: ' . $e->getMessage()]);
+        }
+
+    }
+
 
 
 
 }
+
+// $userDao = UserDao::insert($user);
+//             // Retorna uma resposta de sucesso com os dados do usuário inserido
+//             $user['id'] = $userDao;
+
+//             http_response_code(200);
+//             header('Content-Type: application/json');
+//             echo json_encode($user);

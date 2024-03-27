@@ -11,6 +11,7 @@ $routes = [
     '/userInsert' => 'UserController@store',
     '/userShow' => 'UserController@show',
     '/userUpdate' => 'UserController@update',
+    '/userLogin' => 'UserController@checkCredentials',
     '/logInsert' => 'LogradouroController@store',
     // Adicione outras rotas conforme necessário
 ];

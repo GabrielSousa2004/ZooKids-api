@@ -6,7 +6,7 @@
         {
         //informações do banco de dados
         $servidor="localhost";
-        $banco="bdetec";
+        $banco="bdzookids";
         $usuario="root";
         $senha="";
 

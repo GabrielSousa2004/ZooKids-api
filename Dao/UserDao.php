@@ -86,12 +86,18 @@ header('Access-Control-Allow-Origin: *');
 
         public static function checkCredentials($email, $senha){
             $conexao = Conexao::conectar();
-            $query = "SELECT * FROM tbclient WHERE emailclient = ? and passwordClient = ?";
+            $query = "SELECT * FROM tbuser WHERE email = ? and senha = ?";
             $stmt = $conexao->prepare($query);
             $stmt->bindValue(1, $email);
             $stmt->bindValue(2, $senha);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            if($stmt->rowCount()>0){
+                
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            else {
+                return false;
+            }
         }
 
 
